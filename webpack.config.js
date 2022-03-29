@@ -9,13 +9,18 @@ const htmlPlugin = new htmlWebpackPlugin({
 const config = {
   mode: 'development',
   entry: {
-    index: './src/index.js'
+    main: './src/index.js'
   },
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    publicPath: './dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash:5].js',
     clean: true
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    },
+    extensions: ['.js', '.jsx']
   },
 	module: {
 		rules: [
@@ -31,7 +36,7 @@ const config = {
 		]
 	},
     plugins: [
-        htmlPlugin
+      htmlPlugin
     ]
 }
 
