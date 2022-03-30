@@ -9,11 +9,12 @@ const htmlPlugin = new htmlWebpackPlugin({
 const config = {
   mode: 'development',
   entry: {
-    main: './src/index.js'
+    main: './src/main.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash:5].js',
+    publicPath: '/',
     clean: true
   },
   resolve: {
@@ -35,9 +36,12 @@ const config = {
       }
 		]
 	},
-    plugins: [
-      htmlPlugin
-    ]
+  plugins: [
+    htmlPlugin
+  ],
+  devServer: {
+    historyApiFallback: true
+  }
 }
 
 module.exports = config
