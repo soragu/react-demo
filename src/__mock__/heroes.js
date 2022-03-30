@@ -5,3 +5,5 @@ const heroes = [
 	{id: 4, name: 'Black Widow', descirption: 'From Red Room'},
 	{id: 5, name: 'Black Panther', descirption: 'Wakanda forever'}
 ]
+
+export default heroes

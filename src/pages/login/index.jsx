@@ -38,7 +38,9 @@ function LoginPage() {
             required
             fullWidth
             id="username"
-            label="UserName"
+            label={
+              <FormattedMessage id="username" />
+            }
             name="username"
             autoFocus
           />
@@ -47,7 +49,9 @@ function LoginPage() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label={
+              <FormattedMessage id="password" />
+            }
             type="password"
             id="password"
           />
@@ -57,7 +61,7 @@ function LoginPage() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            <FormattedMessage id="signIn" />
           </Button>
         </Box>
       </Box>

@@ -1,26 +1,25 @@
 import { Fab, FormControl, MenuItem, Select } from '@mui/material'
-import { useState } from 'react'
+import { FormattedMessage } from 'react-intl'
+import './LocaleSelector.css'
 
 function LocaleSelector(props) {
-  const [locale, setLocale] = useState('zh-CN')
-
-  const handleChange = function(event) {
-    setLocale(event.target.value) 
-  }
-
 	return (
-    <FormControl sx={{ m: 1}}>
+    <FormControl sx={{ m: 1}} className="locale selector">
       <Select
-        labelId="selectLocale"
-        id="selectLocale"
-        value={locale}
+        labelId="localeSelector"
+        id="localeSelector"
+        value={props.value}
         label=""
-        onChange={handleChange}
+        onChange={props.onChange}
         size="small"
-        className="select-locale"
       >
-        <MenuItem value="zh-CN">中文</MenuItem>
-        <MenuItem value="en-US">英文</MenuItem>
+        <MenuItem value="en">
+          <FormattedMessage id="english" />
+        </MenuItem>
+
+        <MenuItem value="zh">
+          <FormattedMessage id="chinese" />
+        </MenuItem>
       </Select>
     </FormControl>
   )

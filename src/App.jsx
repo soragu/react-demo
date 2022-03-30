@@ -4,27 +4,35 @@ import { FormPage, ListPage, LoginPage } from '@/pages'
 import './App.css'
 import { en_US, zh_CN } from '@/locale'
 import LocaleSelector from '@/components/LocaleSelector'
-import { Fragment } from 'react'
+import { useState } from 'react'
 
 function App() {
+  const [locale, setLocale] = useState('en')
+
+  const handleLocaleChange = function(event) {
+    setLocale(event.target.value) 
+  }
+
+  const messagesLocale = {
+    'en': en_US,
+    'zh': zh_CN
+  }
+
   return (
-    <Fragment>
-      <LocaleSelector />
+    <IntlProvider messages={messagesLocale[locale]} locale={locale} defaultLocale="en">
+      <LocaleSelector value={locale} onChange={handleLocaleChange} />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/form' element={<FormPage />} />
+          <Route path='/list' element={<ListPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path="*" element={<Navigate to="/login" />}  />
 
-      <IntlProvider messages={en_US} locale="en" defaultLocale="en">
-        <BrowserRouter>
-          <Routes>
-            <Route path='/form' element={<FormPage />} />
-            <Route path='/list' element={<ListPage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path="*" element={<Navigate to="/login" />}  />
-
-            {/* Not Found */}
-            {/* <Route path="*" element={<NotFound />} /> */}
-          </Routes>
-        </BrowserRouter>
-      </IntlProvider>
-    </Fragment>
+          {/* Not Found */}
+          {/* <Route path="*" element={<NotFound />} /> */}
+        </Routes>
+      </BrowserRouter>
+    </IntlProvider>
   )
 }
 
