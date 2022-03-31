@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 
 const HeaderStyle = {
-  height: '80px',
+  height: 80,
   background: '#020202',
   color: '#fff',
   display: 'flex',

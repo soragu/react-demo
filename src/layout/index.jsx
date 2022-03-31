@@ -12,7 +12,7 @@ function Layout() {
 			</Box>
 
 			<Box sx={{display: 'flex', flex: 1}}>
-				<Box sx={{width: '200px', flex: 'none'}}>
+				<Box sx={{width: 200, flex: 'none'}}>
 					<SideBar />
 				</Box>
 
