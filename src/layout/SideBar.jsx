@@ -30,7 +30,7 @@ function SideBar() {
       <List component="nav">
         {
           sidebarConfig.map((item) => (
-            <NavItem key={item.title} {...item} />
+            <NavItem key={item.path} {...item} />
           ))
         }
       </List>

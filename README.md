@@ -2,6 +2,11 @@
 
 ## Quick Start
 ```shell
+# install dependencies
+npm i
+# or
+yarn
+
 # how to run
 npm start
 
@@ -14,8 +19,8 @@ npm run build
 * <Layout />
 * List Demo
 * Form Demo
+* Add redux for user state
 
 ## To Do
-* Add redux for user state
 * Using mock api to login
 * Using mock api to fetch data

@@ -1,6 +1,5 @@
 import {
   Container,
-  FormControlLabel,
   TextField,
   Box,
   Button,
@@ -16,9 +15,9 @@ function LoginPage(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
     dispatch(login({
       username: data.get('username'),
       password: data.get('password')

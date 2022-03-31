@@ -1,22 +1,23 @@
 import {
   Home,
   ViewList,
-  DynamicForm
+  DynamicForm,
 } from '@mui/icons-material'
+import { FormattedMessage } from 'react-intl'
 
 const sidebarConfig = [
   {
-    title: 'Home',
+    title: <FormattedMessage id="home" />,
     path: '/dashboard/home',
     icon: <Home />
   },
   {
-    title: 'List Demo',
+    title: <FormattedMessage id="listDemo" />,
     path: '/dashboard/list',
     icon: <ViewList />
   },
   {
-    title: 'Form Demo',
+    title: <FormattedMessage id="formDemo" />,
     path: '/dashboard/form',
     icon: <DynamicForm />
   }

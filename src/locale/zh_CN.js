@@ -11,9 +11,16 @@ const localeSelector_zh_CN = {
 	english: '英文',
 }
 
+const nav_zh_CN = {
+	home: '主页',
+	listDemo: '列表示例',
+	formDemo: '表单示例'
+}
+
 const zh_CN = {
 	...login_zh_CN,
-	...localeSelector_zh_CN
+	...localeSelector_zh_CN,
+	...nav_zh_CN
 }
 
 export default zh_CN
