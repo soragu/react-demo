@@ -7,16 +7,23 @@ import {
   Typography
 } from '@mui/material'
 import { FormattedMessage } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from '@/store/user'
 
-function LoginPage() {
+function LoginPage(props) {
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log({
+    dispatch(login({
       username: data.get('username'),
-      password: data.get('password'),
-    })
+      password: data.get('password')
+    }))
+    navigate('/dashboard/home')
   }
 
   return (
