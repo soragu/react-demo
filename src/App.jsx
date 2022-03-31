@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { IntlProvider } from 'react-intl'
-import { FormPage, ListPage, LoginPage } from '@/pages'
+import { FormPage, ListPage, LoginPage, HomePage } from '@/pages'
 import './App.css'
 import { en_US, zh_CN } from '@/locale'
 import LocaleSelector from '@/components/LocaleSelector'
 import { useState } from 'react'
+import Layout from '@/layout'
 
 function App() {
   const [locale, setLocale] = useState('en')
@@ -23,10 +24,15 @@ function App() {
       <LocaleSelector value={locale} onChange={handleLocaleChange} />
       <BrowserRouter>
         <Routes>
-          <Route path='/form' element={<FormPage />} />
-          <Route path='/list' element={<ListPage />} />
           <Route path='/login' element={<LoginPage />} />
-          <Route path="*" element={<Navigate to="/login" />}  />
+
+          <Route path='/dashboard' element={<Layout />}>
+            <Route path='home' element={<HomePage />} />
+            <Route path='form' element={<FormPage />} />
+            <Route path='list' element={<ListPage />} />
+          </Route>
+          
+          <Route path="*" element={<Navigate to="/login" />} />
 
           {/* Not Found */}
           {/* <Route path="*" element={<NotFound />} /> */}

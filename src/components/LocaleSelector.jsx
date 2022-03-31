@@ -12,6 +12,7 @@ function LocaleSelector(props) {
         label=""
         onChange={props.onChange}
         size="small"
+        sx={{background: '#fff'}}
       >
         <MenuItem value="en">
           <FormattedMessage id="english" />
