@@ -6,6 +6,7 @@ import { en_US, zh_CN } from '@/locale'
 import LocaleSelector from '@/components/LocaleSelector'
 import { useState } from 'react'
 import Layout from '@/layout'
+import Router from '@/router'
 
 function App() {
   const [locale, setLocale] = useState('en')
@@ -23,20 +24,7 @@ function App() {
     <IntlProvider messages={messagesLocale[locale]} locale={locale} defaultLocale="en">
       <LocaleSelector value={locale} onChange={handleLocaleChange} />
       <BrowserRouter>
-        <Routes>
-          <Route path='/login' element={<LoginPage />} />
-
-          <Route path='/dashboard' element={<Layout />}>
-            <Route path='home' element={<HomePage />} />
-            <Route path='form' element={<FormPage />} />
-            <Route path='list' element={<ListPage />} />
-          </Route>
-          
-          <Route path="*" element={<Navigate to="/login" />} />
-
-          {/* Not Found */}
-          {/* <Route path="*" element={<NotFound />} /> */}
-        </Routes>
+        <Router />
       </BrowserRouter>
     </IntlProvider>
   )

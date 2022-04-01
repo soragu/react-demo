@@ -22,12 +22,14 @@ import DateRangePicker from '@mui/lab/DateRangePicker'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { useState, useEffect, Fragment } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { FormattedMessage } from 'react-intl'
 
 const defaultValues = {
   name: '',
   region: '',
-  date1: '',
-  date2: '',
+  date1: null,
+  date2: null,
   delivery: false,
   type: [],
   resource: '',
@@ -37,6 +39,17 @@ const defaultValues = {
 function FormPage() {
   const [formValues, setFormValues] = useState(defaultValues)
   const [dateRange, setDateRange] = useState([null, null])
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    setValue,
+    getValues,
+    formState: { errors }
+  } = useForm({
+    defaultValues: defaultValues
+  })
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -46,73 +59,74 @@ function FormPage() {
     })
   }
 
-  const handleSwitchChange = (e) => {
-    const { name, checked } = e.target
-    setFormValues({
-      ...formValues,
-      [name]: checked,
-    })
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(formValues)
+  const onFormSubmit = (data) => {
+    console.log(data)
   }
 
   const handleCheckboxChange = (e) => {
     const { name, checked, value } = e.target
-    let checkedSet = new Set(formValues[name])
+
+    let checkedSet = new Set(getValues(name))
     if (checked) {
       checkedSet.add(value)
     } else {
       checkedSet.delete(value)
     }
-    setFormValues({
-      ...formValues,
-      [name]: Array.from(checkedSet),
-    })
-
+    setValue(name, Array.from(checkedSet))
   }
 
   useEffect(() => {
-    setFormValues({
-      ...formValues,
-      date1: dateRange[0],
-      date2: dateRange[1],
-    })
+    setValue('date1', dateRange[0])
+    setValue('date2', dateRange[1])
   }, [dateRange])
 
   return (
-    <Box component="form" className="form-page" onSubmit={handleSubmit}>
+    <Box component="form" className="form-page" onSubmit={handleSubmit(onFormSubmit)}>
       <Grid container alignItems="flex-start" direction="column" spacing={2}>
         <Grid item>
           <TextField
+            error={Boolean(errors.name)}
             type="text"
             name="name"
-            value={formValues.name}
-            label="Activity name"
-            onChange={handleInputChange}
+            label={<FormattedMessage id="name" />}
             size="small"
+            {
+              ...register('name', { 
+                required: <FormattedMessage id="nameRequired" />, 
+                maxLength : {
+                  value: 20,
+                  message: <FormattedMessage id="nameMaxLength" />}
+                }
+              )
+            }
+            helperText={errors.name ? errors.name.message : ''}
           />
         </Grid>
 
         <Grid item>
           <FormControl sx={{ minWidth: 120 }} size="small">
-            <InputLabel id="zoneLabel">Zone</InputLabel>
-            <Select
-              labelId="zoneLabel"
-              label="Zone"
+            <InputLabel id="zoneLabel"><FormattedMessage id="region" /></InputLabel>
+            <Controller
               name="region"
-              value={formValues.region}
-              onChange={handleInputChange}
-            >
-              <MenuItem key="guangzhou" value="guangzhou">
-                Guangzhou
-              </MenuItem>
-              <MenuItem key="zhuhai" value="zhuhai">
-                Zhuhai
-              </MenuItem>
-            </Select>
+              control={control}
+              render={({field}) => {
+                return (
+                  <Select
+                    labelId="zoneLabel"
+                    label={<FormattedMessage id="region" />}
+                    name="region"
+                    {...field}
+                  >
+                    <MenuItem key="guangzhou" value="guangzhou">
+                      <FormattedMessage id="regionOption1" />
+                    </MenuItem>
+                    <MenuItem key="zhuhai" value="zhuhai">
+                      <FormattedMessage id="regionOption2" />
+                    </MenuItem>
+                  </Select>
+                )
+              }}
+            />
           </FormControl>
         </Grid>
 
@@ -126,10 +140,12 @@ function FormPage() {
               renderInput={(startProps, endProps) => (
                 <Fragment>
                   <TextField {...startProps} size="small" />
-                  <Box sx={{ mx: 2 }}> to </Box>
+                  <Box sx={{ mx: 2 }}> <FormattedMessage id="to" /> </Box>
                   <TextField {...endProps} size="small" />
                 </Fragment>
               )}
+              startText={<FormattedMessage id="start" />}
+              endText={<FormattedMessage id="end" />}
             />
           </LocalizationProvider>
         </Grid>
@@ -140,42 +156,41 @@ function FormPage() {
               <Switch
                 defaultChecked
                 inputProps={{ name: 'delivery' }}
-                value={formValues.delivery}
-                onChange={handleSwitchChange}
+                {...register('delivery')}
               />
             }
-            label="Instant delivery"
+            label={<FormattedMessage id="delivery" />}
             labelPlacement="end"
           />           
         </Grid>
 
         <Grid item>
           <FormControl component="fieldset" variant="standard">
-            <FormLabel component="label">Activity type</FormLabel>
+            <FormLabel component="label"><FormattedMessage id="type" /></FormLabel>
             <FormGroup>
               <FormControlLabel
                 control={
                   <Checkbox onChange={handleCheckboxChange} name="type" value="Online activities" size="small" />
                 }
-                label="Online activities"
+                label={<FormattedMessage id="typeOption1" />}
               />
               <FormControlLabel
                 control={
                   <Checkbox onChange={handleCheckboxChange} name="type" value="Promotion activities" size="small" />
                 }
-                label="Promotion activities"
+                label={<FormattedMessage id="typeOption2" />}
               />
               <FormControlLabel
                 control={
                   <Checkbox onChange={handleCheckboxChange} name="type" value="Offline activities" size="small" />
                 }
-                label="Offline activities"
+                label={<FormattedMessage id="typeOption3" />}
               />
               <FormControlLabel
                 control={
                   <Checkbox onChange={handleCheckboxChange} name="type" value="Simple brand exposure" size="small" />
                 }
-                label="Simple brand exposure"
+                label={<FormattedMessage id="typeOption4" />}
               />
             </FormGroup>
           </FormControl>
@@ -183,49 +198,55 @@ function FormPage() {
 
         <Grid item>
           <FormControl>
-            <FormLabel>Resources</FormLabel>
-            <RadioGroup
+            <FormLabel><FormattedMessage id="resource" /></FormLabel>
+            <Controller
               name="resource"
-              value={formValues.resource}
-              onChange={handleInputChange}
-              row
-            >
-              <FormControlLabel
-                key="Sponsor"
-                value="Sponsor"
-                control={<Radio size="small" />}
-                label="Sponsor"
-              />
-              <FormControlLabel
-                key="Venue"
-                value="Venue"
-                control={<Radio size="small" />}
-                label="Venue"
-              />
-            </RadioGroup>
+              control={control}
+              render={({field}) => {
+                return (
+                  <RadioGroup
+                    name="resource"
+                    row
+                    {...field}
+                  >
+                    <FormControlLabel
+                      key="Sponsor"
+                      value="Sponsor"
+                      control={<Radio size="small" />}
+                      label={<FormattedMessage id="resourceOption1" />}
+                    />
+                    <FormControlLabel
+                      key="Venue"
+                      value="Venue"
+                      control={<Radio size="small" />}
+                      label={<FormattedMessage id="resourceOption2" />}
+                    />
+                  </RadioGroup>
+                )
+              }}
+            />
           </FormControl>
         </Grid>
 
         <Grid item>
           <FormControl sx={{minWidth: 480}}>
             <TextField
-              label="Activity form"
+              label={<FormattedMessage id="desc" />}
               multiline
               rows={4}
-              value={formValues.desc}
               name="desc"
-              onChange={handleInputChange}
+              {...register('desc')}
             />
           </FormControl> 
         </Grid>
 
         <Grid item>
           <Button variant="contained" color="primary" type="submit">
-            Submit
+            <FormattedMessage id="buttonSubmit" />
           </Button>
 
           <Button variant="outlined" sx={{ml: 1}}>
-            Cancel
+            <FormattedMessage id="buttonCancel" />
           </Button>
         </Grid>
       </Grid>
