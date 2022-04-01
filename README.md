@@ -15,8 +15,8 @@ npm run build
 ```
 ## Done
 * Login Page
-* <LocaleSelector />
-* <Layout />
+* `<LocaleSelector />`
+* `<Layout />`
 * List Demo
 * Form Demo
 * Add redux for user state
