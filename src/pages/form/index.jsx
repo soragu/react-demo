@@ -15,7 +15,7 @@ import {
   Item,
   Switch,
   FormGroup,
-  Checkbox
+  Checkbox,
 } from '@mui/material'
 import DateFnsUtils from '@date-io/date-fns'
 import DateRangePicker from '@mui/lab/DateRangePicker'
@@ -33,11 +33,10 @@ const defaultValues = {
   delivery: false,
   type: [],
   resource: '',
-  desc: ''
+  desc: '',
 }
 
 function FormPage() {
-  const [formValues, setFormValues] = useState(defaultValues)
   const [dateRange, setDateRange] = useState([null, null])
   const {
     register,
@@ -46,18 +45,10 @@ function FormPage() {
     control,
     setValue,
     getValues,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   })
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    })
-  }
 
   const onFormSubmit = (data) => {
     console.log(data)
@@ -90,33 +81,28 @@ function FormPage() {
             name="name"
             label={<FormattedMessage id="name" />}
             size="small"
-            {
-              ...register('name', { 
-                required: <FormattedMessage id="nameRequired" />, 
-                maxLength : {
-                  value: 20,
-                  message: <FormattedMessage id="nameMaxLength" />}
-                }
-              )
-            }
+            {...register('name', {
+              required: <FormattedMessage id="nameRequired" />,
+              maxLength: {
+                value: 20,
+                message: <FormattedMessage id="nameMaxLength" />,
+              },
+            })}
             helperText={errors.name ? errors.name.message : ''}
           />
         </Grid>
 
         <Grid item>
           <FormControl sx={{ minWidth: 120 }} size="small">
-            <InputLabel id="zoneLabel"><FormattedMessage id="region" /></InputLabel>
+            <InputLabel id="zoneLabel">
+              <FormattedMessage id="region" />
+            </InputLabel>
             <Controller
               name="region"
               control={control}
-              render={({field}) => {
+              render={({ field }) => {
                 return (
-                  <Select
-                    labelId="zoneLabel"
-                    label={<FormattedMessage id="region" />}
-                    name="region"
-                    {...field}
-                  >
+                  <Select labelId="zoneLabel" label={<FormattedMessage id="region" />} name="region" {...field}>
                     <MenuItem key="guangzhou" value="guangzhou">
                       <FormattedMessage id="regionOption1" />
                     </MenuItem>
@@ -134,13 +120,16 @@ function FormPage() {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DateRangePicker
               value={dateRange}
-              onChange={value => {
+              onChange={(value) => {
                 setDateRange(value)
               }}
               renderInput={(startProps, endProps) => (
                 <Fragment>
                   <TextField {...startProps} size="small" />
-                  <Box sx={{ mx: 2 }}> <FormattedMessage id="to" /> </Box>
+                  <Box sx={{ mx: 2 }}>
+                    {' '}
+                    <FormattedMessage id="to" />{' '}
+                  </Box>
                   <TextField {...endProps} size="small" />
                 </Fragment>
               )}
@@ -152,21 +141,17 @@ function FormPage() {
 
         <Grid item>
           <FormControlLabel
-            control={
-              <Switch
-                defaultChecked
-                inputProps={{ name: 'delivery' }}
-                {...register('delivery')}
-              />
-            }
+            control={<Switch defaultChecked inputProps={{ name: 'delivery' }} {...register('delivery')} />}
             label={<FormattedMessage id="delivery" />}
             labelPlacement="end"
-          />           
+          />
         </Grid>
 
         <Grid item>
           <FormControl component="fieldset" variant="standard">
-            <FormLabel component="label"><FormattedMessage id="type" /></FormLabel>
+            <FormLabel component="label">
+              <FormattedMessage id="type" />
+            </FormLabel>
             <FormGroup>
               <FormControlLabel
                 control={
@@ -198,17 +183,15 @@ function FormPage() {
 
         <Grid item>
           <FormControl>
-            <FormLabel><FormattedMessage id="resource" /></FormLabel>
+            <FormLabel>
+              <FormattedMessage id="resource" />
+            </FormLabel>
             <Controller
               name="resource"
               control={control}
-              render={({field}) => {
+              render={({ field }) => {
                 return (
-                  <RadioGroup
-                    name="resource"
-                    row
-                    {...field}
-                  >
+                  <RadioGroup name="resource" row {...field}>
                     <FormControlLabel
                       key="Sponsor"
                       value="Sponsor"
@@ -229,15 +212,9 @@ function FormPage() {
         </Grid>
 
         <Grid item>
-          <FormControl sx={{minWidth: 480}}>
-            <TextField
-              label={<FormattedMessage id="desc" />}
-              multiline
-              rows={4}
-              name="desc"
-              {...register('desc')}
-            />
-          </FormControl> 
+          <FormControl sx={{ minWidth: 480 }}>
+            <TextField label={<FormattedMessage id="desc" />} multiline rows={4} name="desc" {...register('desc')} />
+          </FormControl>
         </Grid>
 
         <Grid item>
@@ -245,7 +222,7 @@ function FormPage() {
             <FormattedMessage id="buttonSubmit" />
           </Button>
 
-          <Button variant="outlined" sx={{ml: 1}}>
+          <Button variant="outlined" sx={{ ml: 1 }}>
             <FormattedMessage id="buttonCancel" />
           </Button>
         </Grid>

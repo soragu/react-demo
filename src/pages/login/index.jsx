@@ -22,7 +22,7 @@ function LoginPage(props) {
       username: data.get('username'),
       password: data.get('password')
     }))
-    navigate('/dashboard/home')
+    navigate('/dashboard')
   }
 
   return (

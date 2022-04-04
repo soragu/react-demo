@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl'
 const sidebarConfig = [
   {
     title: <FormattedMessage id="home" />,
-    path: '/dashboard/home',
+    path: '/dashboard',
     icon: <Home />
   },
   {

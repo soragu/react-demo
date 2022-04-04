@@ -20,7 +20,7 @@ const ativeStyle = {
 function NavItem(props) {
   const {path, icon, title} = props
   const { pathname } = useLocation()
-  const isActive = matchPath({ path, end: false }, pathname)
+  const isActive = matchPath({ path }, pathname)
   return (
     <ListItem
       component={NavLink}

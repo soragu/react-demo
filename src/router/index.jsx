@@ -9,10 +9,10 @@ function Router() {
       path: '/dashboard',
       element: <Layout />,
       children: [
-        { path: 'home', element: <HomePage /> },
+        { index: true, path: '', element: <HomePage /> },
         { path: 'form', element: <FormPage /> },
         { path: 'list', element: <ListPage /> },
-        { path: '*', element: <Navigate to="/dashboard/home" /> },
+        { path: '*', element: <Navigate to="/dashboard" /> },
       ]
     },
     { path: '*', element: <Navigate to="/login" replace /> }
