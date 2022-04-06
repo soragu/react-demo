@@ -1,47 +1,57 @@
-const path = require("path")
-const htmlWebpackPlugin = require("html-webpack-plugin")
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 const htmlPlugin = new htmlWebpackPlugin({
-  template: path.join(__dirname, "./public/index.html"),
-  filename: "index.html"
+  template: path.join(__dirname, './public/index.html'),
+  filename: 'index.html',
 })
+
+const hmrPlugin = new webpack.HotModuleReplacementPlugin()
 
 const config = {
   mode: 'development',
   entry: {
-    main: './src/main.js'
+    main: './src/main.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash:5].js',
     publicPath: '/',
-    clean: true
+    clean: true,
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src'),
     },
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
-	module: {
-		rules: [
+  module: {
+    rules: [
       {
         test: /\.js|jsx$/,
         use: ['babel-loader'],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-		]
-	},
-  plugins: [
-    htmlPlugin
-  ],
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
   devServer: {
-    historyApiFallback: true
-  }
+    // publicPath: '/',
+    historyApiFallback: true,
+    proxy: {
+      // api fox mock
+      '/api': {
+        target: 'http://127.0.0.1:4523/mock/793873',
+        pathRewrite: { '/api': '' },
+        changeOrigin: true,
+      },
+    },
+  },
+  plugins: [htmlPlugin, hmrPlugin],
 }
 
 module.exports = config
