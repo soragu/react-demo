@@ -11,7 +11,8 @@ import {
   Grid,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
+import { useState, useEffect } from 'react'
 
 function EditTitle(props) {
   const { children, onClose, ...other } = props
@@ -38,8 +39,10 @@ function EditTitle(props) {
 }
 
 function Edit(props) {
-  const { handleSubmit, register, setValue } = useForm()
-  console.log(props.data)
+  const { handleSubmit, register, control, reset } = useForm()
+  useEffect(() => {
+    reset()
+  }, [props.data])
   return (
     <Dialog open={props.open}>
       <EditTitle onClose={props.onClose}>Edit Hero - {props.data.id} </EditTitle>
@@ -47,13 +50,36 @@ function Edit(props) {
         <Box component="form">
           <Grid container alignItems="flex-start" direction="column" spacing={2}>
             <Grid item>
-              <TextField disabled label="id" variant="standard" size="small" {...register('id', { value: props.data.id })}></TextField>
+              <Controller
+                name="id"
+                control={control}
+                defaultValue={props.data.id}
+                render={({ field }) => (
+                  <TextField disabled label="Id" variant="standard" size="small" {...field}></TextField>
+                )}
+              />
             </Grid>
+
             <Grid item>
-              <TextField label="name" variant="standard" size="small" {...register('name', { value: props.data.name })}></TextField>
+              <Controller
+                name="name"
+                control={control}
+                defaultValue={props.data.name}
+                render={({ field }) => (
+                  <TextField label="Name" variant="standard" size="small" {...field}></TextField>
+                )}
+              />
             </Grid>
+
             <Grid item>
-              <TextField label="description" variant="standard" size="small" {...register('description', { value: props.data.description })}></TextField>
+              <Controller
+                name="description"
+                control={control}
+                defaultValue={props.data.description}
+                render={({ field }) => (
+                  <TextField label="Description" variant="standard" size="small" {...field}></TextField>
+                )}
+              />
             </Grid>
           </Grid>
         </Box>
