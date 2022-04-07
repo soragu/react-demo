@@ -7,6 +7,7 @@ import LocaleSelector from '@/components/LocaleSelector'
 import { useState } from 'react'
 import Layout from '@/layout'
 import Router from '@/router'
+import { NotistackWrapper } from '@/components'
 
 function App() {
   const [locale, setLocale] = useState('en')
@@ -21,12 +22,14 @@ function App() {
   }
 
   return (
-    <IntlProvider messages={messagesLocale[locale]} locale={locale} defaultLocale="en">
-      <LocaleSelector value={locale} onChange={handleLocaleChange} />
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </IntlProvider>
+    <NotistackWrapper>
+      <IntlProvider messages={messagesLocale[locale]} locale={locale} defaultLocale="en">
+        <LocaleSelector value={locale} onChange={handleLocaleChange} />
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </IntlProvider>
+    </NotistackWrapper>
   )
 }
 

@@ -1,3 +1,4 @@
 import LocaleSelector from './LocaleSelector'
+import NotistackWrapper from './NotiStackWrapper'
 
-export { LocaleSelector }
+export { LocaleSelector, NotistackWrapper }
