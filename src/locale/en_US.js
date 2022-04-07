@@ -2,8 +2,10 @@ const login_en_US = {
 	hello: 'Hello',
 	login: 'Login',
 	signIn: 'Sign in',
+	userid: 'Userid',
 	username: 'Username',
 	password: 'Password',
+	roles: 'Roles',
 }
 
 const localeSelector_en_US = {

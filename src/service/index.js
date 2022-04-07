@@ -8,13 +8,21 @@ const service = axios.create({
 	timeout: 5000, // request timeout
 })
 
+function getToken() {
+	const state = store.getState()
+	const user = state.user
+	return user.token || ''
+}
+
 // request interceptor
 service.interceptors.request.use(
 	(config) => {
 		// do something before request is sent
-		console.log(store)
-		// const user = 
-		// config.headers['Token'] = user.token || ''
+		config.headers['Token'] = getToken()
+		if (config.url !== '/login' && !config.headers['Token']) {
+			// re-login
+			return Promise.reject(new Error('token is required'))
+		}
 		return config
 	},
 	(error) => {

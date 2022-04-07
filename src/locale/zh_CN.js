@@ -2,8 +2,10 @@ const login_zh_CN = {
 	hello: '你好',
 	login: '登录',
 	signIn: '登入',
+	userid: '用户Id',
 	username: '用户名',
 	password: '密码',
+	roles: '角色组',
 }
 
 const localeSelector_zh_CN = {

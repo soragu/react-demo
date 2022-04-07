@@ -12,14 +12,20 @@ function HomePage() {
 
   return (
     <Box>
+
+      <Box>
+        <label><FormattedMessage id="userid" />:</label>
+        <span>{user.userid}</span>
+      </Box>
+
       <Box>
         <label><FormattedMessage id="username" />:</label>
         <span>{user.username}</span>
       </Box>
 
       <Box>
-        <label><FormattedMessage id="password" />:</label>
-        <span>{user.password}</span>
+        <label><FormattedMessage id="roles" />:</label>
+        <span>{user.roles.join(', ')}</span>
       </Box>
 
       <Box>

@@ -2,7 +2,7 @@ import { Container, TextField, Box, Button, Typography } from '@mui/material'
 import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { USER_LOGIN } from '@/store/user'
+import { SET_USER, SET_TOKEN, USER_LOGOUT } from '@/store/user'
 import { login, getUser } from '@/service/api/user'
 
 function LoginPage(props) {
@@ -12,18 +12,19 @@ function LoginPage(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    // dispatch(login({
-    //   username: data.get('username'),
-    //   password: data.get('password')
-    // }))
     let params = {
       username: formData.get('username'),
       password: formData.get('password'),
     }
     login(params).then((res) => {
-      console.log(res)
+      let { userid, token } = res.data
+      dispatch(SET_TOKEN({token}))
+      getUser(userid).then(res => {
+        let user = res.data || {}
+        dispatch(SET_USER({...user}))
+        navigate('/dashboard')
+      })
     })
-    // navigate('/dashboard')
   }
 
   return (
