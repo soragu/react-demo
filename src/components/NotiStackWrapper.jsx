@@ -6,7 +6,7 @@ import { SnackbarUtilsConfigurator } from './SnackbarUtils'
 * 如果只想显示1个，设置为1，3是默认值
 */
 const MAX_SNACKBAR = 3
-//设置自动隐藏时间，默认值是5秒，也就是5000毫秒
+//设置自动隐藏时间，默认值是3秒，也就是3000毫秒
 const AUTO_HIDE_DURATION = 3000
 //设置消息条位置，默认值为上中
 const POSITION = {

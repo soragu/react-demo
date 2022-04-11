@@ -31,4 +31,7 @@ export const NotiStackHepler = {
   toast(msg, variant = 'default') {
     useSnackbarRef.enqueueSnackbar(msg, { variant })
   },
+  close(key) {
+    key ? useSnackbarRef.closeSnackbar(key) : useSnackbarRef.closeSnackbar()
+  },
 }
