@@ -17,19 +17,19 @@ export const SnackbarUtilsConfigurator = () => {
 
 export const NotiStackHepler = {
   success(msg) {
-    this.toast(msg, 'success')
+    return this.toast(msg, 'success')
   },
   warning(msg) {
-    this.toast(msg, 'warning')
+    return this.toast(msg, 'warning')
   },
   info(msg) {
-    this.toast(msg, 'info')
+    return this.toast(msg, 'info')
   },
   error(msg) {
-    this.toast(msg, 'error')
+    return this.toast(msg, 'error')
   },
   toast(msg, variant = 'default') {
-    useSnackbarRef.enqueueSnackbar(msg, { variant })
+    return useSnackbarRef.enqueueSnackbar(msg, { variant })
   },
   close(key) {
     key ? useSnackbarRef.closeSnackbar(key) : useSnackbarRef.closeSnackbar()
