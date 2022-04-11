@@ -28,7 +28,7 @@ function LoginPage(props) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" data-testid="loginPage">
       <Box
         sx={{
           marginTop: 8,

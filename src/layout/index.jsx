@@ -6,17 +6,17 @@ import SideBar from './SideBar'
 
 function Layout() {
 	return (
-		<Box sx={{height: '100vh', display: 'flex', flexDirection: 'column'}}>
-			<Box sx={{flex: 'none'}}>
+		<Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }} data-testid="layout">
+			<Box sx={{ flex: 'none' }}>
 				<Header />
 			</Box>
 
-			<Box sx={{display: 'flex', flex: 1}}>
-				<Box sx={{width: 200, flex: 'none'}}>
+			<Box sx={{ display: 'flex', flex: 1 }}>
+				<Box sx={{ width: 200, flex: 'none' }}>
 					<SideBar />
 				</Box>
 
-				<Container component="main" sx={{padding:2}}>
+				<Container component="main" sx={{ padding: 2 }}>
 					<Outlet />
 				</Container>
 			</Box>

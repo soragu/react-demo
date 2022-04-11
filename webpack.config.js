@@ -31,7 +31,7 @@ const config = {
       {
         test: /\.js|jsx$/,
         use: ['babel-loader'],
-        exclude: /node_modules/,
+        exclude: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, '__tests__')],
       },
       {
         test: /\.css$/,

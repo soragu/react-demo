@@ -13,6 +13,7 @@ function LocaleSelector(props) {
         onChange={props.onChange}
         size="small"
         sx={{background: '#fff'}}
+        data-testid="localeSelectorInput"
       >
         <MenuItem value="en">
           <FormattedMessage id="english" />
