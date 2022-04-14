@@ -1,37 +1,38 @@
 import { useSnackbar } from 'notistack'
 import React from 'react'
 
-const InnerSnackbarUtilsConfigurator = (props) => {
+const InnerSnackbarUtilsConfigurator = (props: any) => {
   props.setUseSnackbarRef(useSnackbar())
   return null
 }
 
-let useSnackbarRef
-const setUseSnackbarRef = (useSnackbarRefProp) => {
+let useSnackbarRef: any
+const setUseSnackbarRef = (useSnackbarRefProp: any) => {
   useSnackbarRef = useSnackbarRefProp
 }
 
 export const SnackbarUtilsConfigurator = () => {
+  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
   return <InnerSnackbarUtilsConfigurator setUseSnackbarRef={setUseSnackbarRef} />
 }
 
 export const NotiStackHepler = {
-  success(msg) {
+  success(msg: any) {
     return this.toast(msg, 'success')
   },
-  warning(msg) {
+  warning(msg: any) {
     return this.toast(msg, 'warning')
   },
-  info(msg) {
+  info(msg: any) {
     return this.toast(msg, 'info')
   },
-  error(msg) {
+  error(msg: any) {
     return this.toast(msg, 'error')
   },
-  toast(msg, variant = 'default') {
+  toast(msg: any, variant = 'default') {
     return useSnackbarRef.enqueueSnackbar(msg, { variant })
   },
-  close(key) {
+  close(key: any) {
     key ? useSnackbarRef.closeSnackbar(key) : useSnackbarRef.closeSnackbar()
   },
 }

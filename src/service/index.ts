@@ -1,5 +1,7 @@
 import axios from 'axios'
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@/store' or its corresponding ... Remove this comment to see the full error message
 import store from '@/store'
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@/components/SnackbarUtils' or... Remove this comment to see the full error message
 import { NotiStackHepler } from '@/components/SnackbarUtils'
 
 // create an axios instance
@@ -19,7 +21,9 @@ function getToken() {
 service.interceptors.request.use(
 	(config) => {
 		// do something before request is sent
+// @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
 		config.headers['Token'] = getToken()
+// @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
 		if (config.url !== '/login' && !config.headers['Token']) {
 			// re-login
 			return Promise.reject(new Error('token is required'))
