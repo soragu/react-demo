@@ -1,7 +1,5 @@
 import axios from 'axios'
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@/store' or its corresponding ... Remove this comment to see the full error message
 import store from '@/store'
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module '@/components/SnackbarUtils' or... Remove this comment to see the full error message
 import { NotiStackHepler } from '@/components/SnackbarUtils'
 
 // create an axios instance

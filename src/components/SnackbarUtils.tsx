@@ -12,7 +12,7 @@ const setUseSnackbarRef = (useSnackbarRefProp: any) => {
 }
 
 export const SnackbarUtilsConfigurator = () => {
-  // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+  
   return <InnerSnackbarUtilsConfigurator setUseSnackbarRef={setUseSnackbarRef} />
 }
 
